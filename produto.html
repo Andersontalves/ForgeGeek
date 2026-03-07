@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dragão Articulado | ForgeGeek 3D</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@400;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .product-detail-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            margin-top: 8rem;
+        }
+        .main-image {
+            width: 100%;
+            border-radius: 20px;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 0 30px rgba(138,43,226,0.2);
+        }
+        .product-data h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        .price-big {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            font-weight: bold;
+            margin-bottom: 2rem;
+        }
+        .review-stars {
+            color: #ffd700;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+        .variants {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .variant {
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+        .variant.active { border-color: var(--secondary); box-shadow: 0 0 10px var(--secondary); }
+        
+        .reviews-section { margin-top: 5rem; }
+        .review-card {
+            background: rgba(255,255,255,0.03);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            border: 1px solid var(--glass-border);
+        }
+        
+        @media (max-width: 900px) {
+            .product-detail-layout { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="glass" id="navbar">
+        <a href="index.html" class="brand">ForgeGeek <i class="fa-solid fa-cube"></i></a>
+        <ul class="nav-links">
+            <li><a href="index.html">Início</a></li>
+            <li><a href="produtos.html" style="color: var(--secondary);">Loja Geométrica</a></li>
+            <li><a href="index.html#about">Sobre a Forja</a></li>
+        </ul>
+        <div class="nav-icons">
+            <a href="cliente.html"><i class="fa-regular fa-user"></i></a>
+            <a href="#" id="cart-icon"><i class="fa-solid fa-cart-shopping"></i> <span class="cart-count">0</span></a>
+        </div>
+    </nav>
+
+    <section>
+        <div class="product-detail-layout">
+            <div>
+                <img src="img/hero-dragon.png" alt="Dragão Articulado Cobre" class="main-image">
+            </div>
+            <div class="product-data">
+                <span style="color: var(--text-muted); text-transform: uppercase; letter-spacing: 2px;">Decoração Geek / Flexíveis</span>
+                <h1>Dragão Articulado Cobre Vintage</h1>
+                
+                <div class="review-stars">
+                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
+                    <span style="color: var(--text-muted); font-size: 0.9rem; margin-left:10px;">(24 Avaliações)</span>
+                </div>
+
+                <div class="price-big">
+                    R$ 120,00 
+                    <span style="font-size: 1rem; color: var(--text-muted); text-decoration: line-through;">R$ 150,00</span>
+                    <br><span style="font-size: 1rem; color: #a0a0b0; font-weight: normal;">ou 3x de R$ 40,00 sem juros</span>
+                </div>
+                
+                <p style="color: var(--text-muted); font-size: 1.1rem; margin-bottom: 2rem;">
+                    Sinta a magia em suas mãos. Nosso Dragão Articulado é impresso em filamento PLA premium, oferecendo movimento fluido de cada escama. Com reflexos metálicos na cor Cobre Vintage, é o guardião perfeito para proteger o seu setup gamer ou enfeitar a sua estante de livros. 
+                </p>
+
+                <h4 style="margin-bottom: 1rem;">Cor / Material:</h4>
+                <div class="variants">
+                    <div class="variant active" style="background: linear-gradient(135deg, #b87333, #8a3324);"></div>
+                    <div class="variant" style="background: linear-gradient(135deg, #7b2cbf, #10002b);"></div>
+                    <div class="variant" style="background: linear-gradient(135deg, #00ffff, #008080);"></div>
+                </div>
+
+                <button class="btn-primary" style="width: 100%; font-size: 1.2rem; padding: 1.2rem;" onclick="addToCart(1, 'Dragão Articulado Cobre', 120, 'img/hero-dragon.png')">
+                    <i class="fa-solid fa-cart-plus"></i> Adicionar ao Inventário
+                </button>
+
+                <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--glass-border);">
+                    <p><strong><i class="fa-solid fa-clock"></i> Tempo de Fabricação:</strong> 2 dias úteis.</p>
+                    <p><strong><i class="fa-solid fa-leaf"></i> Material:</strong> PLA (Biodegradável, leve, resistente).</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="reviews-section">
+            <h2 class="section-title" style="left: 0; transform: none;">Aventuras de outros Clientes</h2>
+            <div class="review-card">
+                <div class="review-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                <strong>Alexandre M.</strong> <span style="color: var(--text-muted); font-size: 0.8rem;">(Comprador Verificado)</span>
+                <p style="margin-top: 0.5rem; color: var(--text-main);">Incrível! O movimento do dragão é muito hipnotizante e o material parece bem resistente. Ficou perfeito em cima do meu gabinete.</p>
+            </div>
+            <div class="review-card">
+                <div class="review-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i></div>
+                <strong>Carla T.</strong> <span style="color: var(--text-muted); font-size: 0.8rem;">(Comprador Verificado)</span>
+                <p style="margin-top: 0.5rem; color: var(--text-main);">Comprei para dar de presente pro meu namorado que joga D&D e ele amou. Entrega super rápida e veio bem embalado.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cart Sidebar & JS -->
+    <div class="cart-overlay" id="cart-overlay"></div>
+    <div class="cart-sidebar" id="cart-sidebar">
+        <!-- Re-use structure -->
+        <div class="cart-header"><h3>Seu Inventário</h3><button class="close-cart" id="close-cart"><i class="fa-solid fa-xmark"></i></button></div>
+        <div class="cart-items" id="cart-items"></div>
+        <div class="cart-footer">
+            <div class="cart-total"><span>Total:</span><span id="cart-total-price">R$ 0,00</span></div>
+            <a href="carrinho.html" class="btn-primary btn-checkout">Finalizar Compra Seguro</a>
+        </div>
+    </div>
+    <div id="toast-container"></div>
+    <script src="js/main.js"></script>
+</body>
+</html>
