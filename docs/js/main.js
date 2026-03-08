@@ -8,6 +8,21 @@ window.addEventListener("scroll", () => {
   }
 });
 
+// Hamburger logic
+const hamburger = document.getElementById('hamburger');
+const navLinks = document.querySelector('.nav-links');
+
+if(hamburger) {
+    hamburger.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+        if(navLinks.classList.contains('active')){
+            hamburger.innerHTML = '<i class="fa-solid fa-xmark"></i>';
+        } else {
+            hamburger.innerHTML = '<i class="fa-solid fa-bars"></i>';
+        }
+    });
+}
+
 // Shopping Cart Logic
 let cart = JSON.parse(localStorage.getItem("forgeGeekCart")) || [];
 
