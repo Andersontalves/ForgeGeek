@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo Completo | ForgeGeek 3D</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@400;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="glass" id="navbar">
+        <a href="index.html" class="brand">ForgeGeek <i class="fa-solid fa-cube"></i></a>
+        <ul class="nav-links">
+            <li><a href="index.html">Início</a></li>
+            <li><a href="produtos.html" style="color: var(--secondary); text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);">Loja Geométrica</a></li>
+            <li><a href="index.html#about">Sobre a Forja</a></li>
+        </ul>
+        <div class="nav-icons">
+            <a href="cliente.html"><i class="fa-regular fa-user"></i></a>
+            <a href="#" id="cart-icon"><i class="fa-solid fa-cart-shopping"></i> <span class="cart-count">0</span></a>
+        </div>
+    </nav>
+
+    <header style="padding: 10rem 5% 4rem; text-align: center; border-bottom: 1px solid var(--glass-border);">
+        <h1 class="brand" style="font-size: 3rem; margin-bottom: 1rem;">O Catálogo Épico</h1>
+        <p style="color: var(--text-muted); font-size: 1.2rem;">Filtre pelos melhores loots para o seu universo.</p>
+    </header>
+
+    <section>
+        <div style="display: flex; gap: 2rem; margin-bottom: 3rem; flex-wrap: wrap; justify-content: center;">
+            <button class="btn-primary" style="padding: 0.5rem 1.5rem; font-size: 0.9rem;">Todos</button>
+            <button class="btn-primary" style="background: transparent; border: 1px solid var(--glass-border); padding: 0.5rem 1.5rem; font-size: 0.9rem;">RPG & Tabuleiro</button>
+            <button class="btn-primary" style="background: transparent; border: 1px solid var(--glass-border); padding: 0.5rem 1.5rem; font-size: 0.9rem;">Pokémon</button>
+            <button class="btn-primary" style="background: transparent; border: 1px solid var(--glass-border); padding: 0.5rem 1.5rem; font-size: 0.9rem;">Setup Gamer</button>
+        </div>
+
+        <div class="products-grid">
+            <!-- Product 1 -->
+            <div class="product-card glass">
+                <div class="product-img-wrapper">
+                    <img src="img/hero-dragon.png" alt="Dragão Articulado">
+                </div>
+                <div class="product-info">
+                    <span class="product-category">Decoração Geek</span>
+                    <h3 class="product-title">Dragão Articulado Cobre</h3>
+                    <div class="product-price">R$ 120,00</div>
+                    <button class="btn-add" onclick="addToCart(1, 'Dragão Articulado Cobre', 120, 'img/hero-dragon.png')"><i class="fa-solid fa-plus"></i></button>
+                    <a href="produto.html" style="font-size:0.8rem; text-align:center; color: var(--secondary); margin-top:10px;">Detalhes</a>
+                </div>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="product-card glass">
+                <div class="product-img-wrapper">
+                    <img src="img/pokeball.png" alt="Pokébola Compartimento">
+                </div>
+                <div class="product-info">
+                    <span class="product-category">Pokémon</span>
+                    <h3 class="product-title">Pokébola Glow</h3>
+                    <div class="product-price">R$ 89,90</div>
+                    <button class="btn-add" onclick="addToCart(2, 'Pokébola Glow', 89.90, 'img/pokeball.png')"><i class="fa-solid fa-plus"></i></button>
+                    <a href="#" style="font-size:0.8rem; text-align:center; color: var(--secondary); margin-top:10px;">Detalhes</a>
+                </div>
+            </div>
+
+            <!-- Product 3 -->
+            <div class="product-card glass">
+                <div class="product-img-wrapper">
+                    <img src="img/rpg-mini.png" alt="Miniatura Mago RPG">
+                </div>
+                <div class="product-info">
+                    <span class="product-category">RPG</span>
+                    <h3 class="product-title">Miniatura Mago (Resina 8k)</h3>
+                    <div class="product-price">R$ 45,00</div>
+                    <button class="btn-add" onclick="addToCart(3, 'Miniatura Mago', 45.00, 'img/rpg-mini.png')"><i class="fa-solid fa-plus"></i></button>
+                    <a href="#" style="font-size:0.8rem; text-align:center; color: var(--secondary); margin-top:10px;">Detalhes</a>
+                </div>
+            </div>
+            
+            <!-- Product 4 -->
+            <div class="product-card glass">
+                <div class="product-img-wrapper">
+                    <div style="width: 100%; height: 100%; background: #1a1a24; display: flex; align-items: center; justify-content: center; font-size: 3rem; color: var(--glass-border);">
+                        <i class="fa-solid fa-dice-d20"></i>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <span class="product-category">Acessórios</span>
+                    <h3 class="product-title">Torre de Dados (Castelo Negro)</h3>
+                    <div class="product-price">R$ 150,00</div>
+                    <button class="btn-add" onclick="addToCart(4, 'Torre de Dados', 150.00, '')"><i class="fa-solid fa-plus"></i></button>
+                </div>
+            </div>
+            
+             <!-- Product 5 -->
+            <div class="product-card glass">
+                <div class="product-img-wrapper">
+                    <div style="width: 100%; height: 100%; background: #1a1a24; display: flex; align-items: center; justify-content: center; font-size: 3rem; color: var(--glass-border);">
+                        <i class="fa-solid fa-headset"></i>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <span class="product-category">Setup Gamer</span>
+                    <h3 class="product-title">Suporte Headset Homem-Aranha</h3>
+                    <div class="product-price">R$ 95,00</div>
+                    <button class="btn-add" onclick="addToCart(5, 'Suporte Headset', 95.00, '')"><i class="fa-solid fa-plus"></i></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cart Overlay & Sidebar -->
+    <div class="cart-overlay" id="cart-overlay"></div>
+    <div class="cart-sidebar" id="cart-sidebar">
+        <!-- Re-use structure from main page -->
+        <div class="cart-header"><h3>Seu Inventário</h3><button class="close-cart" id="close-cart"><i class="fa-solid fa-xmark"></i></button></div>
+        <div class="cart-items" id="cart-items"></div>
+        <div class="cart-footer">
+            <div class="cart-total"><span>Total:</span><span id="cart-total-price">R$ 0,00</span></div>
+            <a href="carrinho.html" class="btn-primary btn-checkout">Finalizar Compra Seguro</a>
+        </div>
+    </div>
+    <div id="toast-container"></div>
+    
+    <script src="js/main.js"></script>
+</body>
+</html>
