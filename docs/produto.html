@@ -7,6 +7,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@400;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
+    <!-- Import the component -->
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
     <style>
         .product-detail-layout {
             display: grid;
@@ -60,6 +62,25 @@
         @media (max-width: 900px) {
             .product-detail-layout { grid-template-columns: 1fr; }
         }
+        
+        .form-control {
+            width: 100%;
+            padding: 1rem;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--glass-border);
+            color: white;
+            font-family: var(--font-body);
+        }
+        .form-control:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 10px rgba(0,255,255,0.2);
+        }
+        .form-control option {
+            background: var(--bg);
+            color: white;
+        }
     </style>
 </head>
 <body>
@@ -80,8 +101,27 @@
 
     <section>
         <div class="product-detail-layout">
-            <div>
-                <img src="img/hero-dragon.png" alt="Dragão Articulado Cobre" class="main-image">
+            <div class="model-container">
+                <!-- 3D Viewer & AR -->
+                <model-viewer 
+                    src="https://modelviewer.dev/shared-assets/models/Astronaut.glb" 
+                    ios-src="https://modelviewer.dev/shared-assets/models/Astronaut.usdz" 
+                    alt="Modelo 3D" 
+                    shadow-intensity="1" 
+                    camera-controls 
+                    auto-rotate 
+                    ar
+                    class="main-image"
+                    style="height: 500px; background-color: rgba(255,255,255,0.02)">
+                    <button slot="ar-button" class="btn-primary" style="position: absolute; bottom: 20px; right: 20px; font-size: 0.9rem; padding: 0.8rem 1.5rem; border: none; z-index: 10;">
+                        <i class="fa-solid fa-camera"></i> Ver no meu espaço (AR)
+                    </button>
+                    <!-- Fallback -->
+                    <img src="img/hero-dragon.png" slot="poster" alt="Dragão Articulado Cobre" class="main-image" style="object-fit: contain;">
+                </model-viewer>
+                <p style="text-align: center; color: var(--text-muted); font-size: 0.8rem; margin-top: 10px;">
+                    <i class="fa-solid fa-hand-pointer"></i> Arraste para girar a peça 3D (Modelo de exemplo)
+                </p>
             </div>
             <div class="product-data">
                 <span style="color: var(--text-muted); text-transform: uppercase; letter-spacing: 2px;">Decoração Geek / Flexíveis</span>
@@ -92,30 +132,54 @@
                     <span style="color: var(--text-muted); font-size: 0.9rem; margin-left:10px;">(24 Avaliações)</span>
                 </div>
 
-                <div class="price-big">
-                    R$ 120,00 
+                <div class="price-big" id="product-price-display">
+                    R$ <span id="current-price">120,00</span>
                     <span style="font-size: 1rem; color: var(--text-muted); text-decoration: line-through;">R$ 150,00</span>
-                    <br><span style="font-size: 1rem; color: #a0a0b0; font-weight: normal;">ou 3x de R$ 40,00 sem juros</span>
+                    <br><span style="font-size: 1rem; color: #a0a0b0; font-weight: normal;">ou 3x de R$ <span id="installment-price">40,00</span> sem juros</span>
                 </div>
                 
                 <p style="color: var(--text-muted); font-size: 1.1rem; margin-bottom: 2rem;">
-                    Sinta a magia em suas mãos. Nosso Dragão Articulado é impresso em filamento PLA premium, oferecendo movimento fluido de cada escama. Com reflexos metálicos na cor Cobre Vintage, é o guardião perfeito para proteger o seu setup gamer ou enfeitar a sua estante de livros. 
+                    Sinta a magia em suas mãos. Nosso Dragão Articulado é impresso com altíssima precisão, oferecendo movimento fluido de cada escama. O guardião perfeito para proteger o seu setup gamer ou enfeitar a sua estante de livros. 
                 </p>
 
-                <h4 style="margin-bottom: 1rem;">Cor / Material:</h4>
-                <div class="variants">
-                    <div class="variant active" style="background: linear-gradient(135deg, #b87333, #8a3324);"></div>
-                    <div class="variant" style="background: linear-gradient(135deg, #7b2cbf, #10002b);"></div>
-                    <div class="variant" style="background: linear-gradient(135deg, #00ffff, #008080);"></div>
+                <div class="advanced-variants" style="background: var(--bg-glass); border: 1px solid var(--glass-border); padding: 1.5rem; border-radius: 12px; margin-bottom: 2rem;">
+                    <h4 style="margin-bottom: 1rem;"><i class="fa-solid fa-sliders"></i> Personalize seu Loot:</h4>
+                    
+                    <div style="margin-bottom: 1rem;">
+                        <label style="display: block; font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.5rem;">Escala (Tamanho)</label>
+                        <select id="variant-scale" class="form-control" onchange="updatePrice()">
+                            <option value="1">32mm (Tamanho Padrão RPG)</option>
+                            <option value="1.5">75mm (Tamanho Exposição) - +R$ 40,00</option>
+                        </select>
+                    </div>
+
+                    <div style="margin-bottom: 1rem;">
+                        <label style="display: block; font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.5rem;">Material</label>
+                        <select id="variant-material" class="form-control" onchange="updatePrice()">
+                            <option value="0">Filamento PLA (Resistente & Ecológico)</option>
+                            <option value="30">Resina 8K (Detalhes Máximos) - +R$ 30,00</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label style="display: block; font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.5rem;">Acabamento</label>
+                        <select id="variant-finish" class="form-control" onchange="updatePrice()">
+                            <option value="0">Sem Pintura (Cinza Base)</option>
+                            <option value="80">Pintado à Mão (Pintura Premium) - +R$ 80,00</option>
+                        </select>
+                    </div>
                 </div>
 
-                <button class="btn-primary" style="width: 100%; font-size: 1.2rem; padding: 1.2rem;" onclick="addToCart(1, 'Dragão Articulado Cobre', 120, 'img/hero-dragon.png')">
+                <button class="btn-primary" style="width: 100%; font-size: 1.2rem; padding: 1.2rem;" onclick="addVariantToCart()">
                     <i class="fa-solid fa-cart-plus"></i> Adicionar ao Inventário
                 </button>
 
-                <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--glass-border);">
-                    <p><strong><i class="fa-solid fa-clock"></i> Tempo de Fabricação:</strong> 2 dias úteis.</p>
-                    <p><strong><i class="fa-solid fa-leaf"></i> Material:</strong> PLA (Biodegradável, leve, resistente).</p>
+                <!-- Nerd Tech Specs -->
+                <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--glass-border); display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; font-size: 0.9rem;">
+                    <div><strong><i class="fa-solid fa-clock"></i> Tempo de Fabricação:</strong><br><span style="color: var(--text-muted);">Aprox. 14 horas de impressão</span></div>
+                    <div><strong><i class="fa-solid fa-layer-group"></i> Resolução:</strong><br><span style="color: var(--text-muted);">50 mícrons (Máxima Fidelidade)</span></div>
+                    <div><strong><i class="fa-solid fa-leaf"></i> Sustentabilidade:</strong><br><span style="color: var(--text-muted);">Materiais Eco-friendly</span></div>
+                    <div><strong><i class="fa-solid fa-shield-halved"></i> Garantia Bárdica:</strong><br><span style="color: var(--text-muted);">Substituição garantida</span></div>
                 </div>
             </div>
         </div>
@@ -131,6 +195,22 @@
                 <div class="review-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i></div>
                 <strong>Carla T.</strong> <span style="color: var(--text-muted); font-size: 0.8rem;">(Comprador Verificado)</span>
                 <p style="margin-top: 0.5rem; color: var(--text-main);">Comprei para dar de presente pro meu namorado que joga D&D e ele amou. Entrega super rápida e veio bem embalado.</p>
+            </div>
+        </div>
+
+        <!-- Community Gallery -->
+        <div class="community-gallery glass" style="margin-top: 4rem; padding: 3rem; border-radius: 20px;">
+            <h2 class="section-title" style="left: 0; transform: none; font-size: 2rem; margin-bottom: 1rem;">Galeria da Guilda</h2>
+            <p style="color: var(--text-muted); margin-bottom: 2rem;">Veja como outros aventureiros pintaram e exibiram este item nos seus setups.</p>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem;">
+                <img src="img/rpg-mini.png" alt="Galeria 1" style="width: 100%; height: 200px; object-fit: cover; border-radius: 12px; cursor: pointer; border: 1px solid var(--glass-border); transition: 0.3s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                <img src="img/pokeball.png" alt="Galeria 2" style="width: 100%; height: 200px; object-fit: cover; border-radius: 12px; cursor: pointer; border: 1px solid var(--glass-border); transition: 0.3s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                <img src="img/hero-dragon.png" alt="Galeria 3" style="width: 100%; height: 200px; object-fit: cover; border-radius: 12px; cursor: pointer; border: 1px solid var(--glass-border); transition: 0.3s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                <div style="width: 100%; height: 200px; border-radius: 12px; border: 2px dashed var(--glass-border); display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--text-muted); cursor: pointer; transition: 0.3s;" onmouseover="this.style.borderColor='var(--secondary)'; this.style.color='var(--secondary)';" onmouseout="this.style.borderColor='var(--glass-border)'; this.style.color='var(--text-muted)';">
+                    <i class="fa-solid fa-camera" style="font-size: 2rem; margin-bottom: 0.5rem;"></i>
+                    <span>Envie a sua foto!</span>
+                </div>
             </div>
         </div>
     </section>

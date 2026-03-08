@@ -134,5 +134,40 @@ function showToast(message) {
   }, 3000);
 }
 
+// Advanced Variants Logic (for produto.html)
+let basePrice = 120.00;
+let currentVariantPrice = 120.00;
+
+function updatePrice() {
+    const scale = parseFloat(document.getElementById('variant-scale')?.value || 1);
+    const materialPrice = document.getElementById('variant-material') ? parseFloat(document.getElementById('variant-material').value) : 0;
+    const finishPrice = document.getElementById('variant-finish') ? parseFloat(document.getElementById('variant-finish').value) : 0;
+    
+    // Scale 1.5 adds R$ 40
+    let scaleAdded = (scale === 1.5) ? 40 : 0;
+    
+    currentVariantPrice = basePrice + scaleAdded + materialPrice + finishPrice;
+    
+    const priceEl = document.getElementById('current-price');
+    const installEl = document.getElementById('installment-price');
+    
+    if (priceEl && installEl) {
+        priceEl.textContent = currentVariantPrice.toFixed(2).replace('.', ',');
+        installEl.textContent = (currentVariantPrice / 3).toFixed(2).replace('.', ',');
+    }
+}
+
+function addVariantToCart() {
+    const scaleText = document.getElementById('variant-scale')?.options[document.getElementById('variant-scale').selectedIndex].text || '';
+    const materialText = document.getElementById('variant-material')?.options[document.getElementById('variant-material').selectedIndex].text || '';
+    const finishText = document.getElementById('variant-finish')?.options[document.getElementById('variant-finish').selectedIndex].text || '';
+    
+    const variantTitle = `Dragão Articulado (${scaleText.split(' ')[0]} - ${finishText.split(' ')[0]})`;
+    
+    // Using a random ID for the variants just to make sure they stack independently if they are different
+    addToCart(Math.floor(Math.random() * 1000) + 10, variantTitle, currentVariantPrice, 'img/hero-dragon.png');
+}
+
 // Initialize
+updatePrice();
 updateCartCount();
